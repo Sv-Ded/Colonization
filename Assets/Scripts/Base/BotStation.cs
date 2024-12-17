@@ -11,6 +11,8 @@ public class BotStation : MonoBehaviour
 
     private List<Bot> _availableBots;
     private List<Bot> _busyBots;
+    private List<Resource> _acceptedTargetResources;
+    private Coroutine _coroutine;
 
     public event Action<Resource> BotBroughtResource;
 
@@ -18,6 +20,7 @@ public class BotStation : MonoBehaviour
     {
         _availableBots = new List<Bot>();
         _busyBots = new List<Bot>();
+        _acceptedTargetResources = new List<Resource>();
 
         for (int i = 0; i < _botCount; i++)
         {
@@ -29,7 +32,15 @@ public class BotStation : MonoBehaviour
         }
     }
 
-    public void SendBotToResources(Queue<Resource> resources)
+    public void AcceptResources(Queue<Resource> resources)
+    {
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
+
+        _coroutine = StartCoroutine(SendBotToResourcesCoroutine(resources));
+    }
+
+    private IEnumerator SendBotToResourcesCoroutine(Queue<Resource> resources)
     {
         Resource resource;
 
@@ -39,22 +50,32 @@ public class BotStation : MonoBehaviour
             {
                 resource = resources.Dequeue();
 
-                SetBotStatus(resource);
+                if (!_acceptedTargetResources.Contains(resource))
+                {
+                    _acceptedTargetResources.Add(resource);
+                    SetBotStatus(resource);
+                }
+
             }
+
+            yield return null;
         }
     }
 
     private void SetBotStatus(Resource resource)
     {
-        Bot bot = _availableBots[0];
+        if (!resource.IsTaken)
+        {
+            Bot bot = _availableBots[0];
 
-        _availableBots.Remove(bot);
+            _availableBots.Remove(bot);
 
-        _busyBots.Add(bot);
+            _busyBots.Add(bot);
 
-        bot.WalkToTarget(resource.transform);
+            bot.WalkToTarget(resource.transform);
 
-        bot.BotReturn += AcceptBot;
+            bot.BotReturn += AcceptBot;
+        }
     }
 
     private void AcceptBot(Bot bot)

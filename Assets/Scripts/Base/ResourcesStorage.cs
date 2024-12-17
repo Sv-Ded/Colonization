@@ -8,6 +8,8 @@ public class ResourcesStorage : MonoBehaviour
     public int CristallCount { get; private set; }
     public int SteelCount{get; private set;}
 
+    public event Action<int,int> ResourceAdded;
+
     public void Init()
     {
         CristallCount = 0;
@@ -24,5 +26,7 @@ public class ResourcesStorage : MonoBehaviour
         {
             SteelCount++;
         }
+
+        ResourceAdded?.Invoke(CristallCount,SteelCount);
     } 
 }

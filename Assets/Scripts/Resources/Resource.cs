@@ -1,14 +1,34 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Resource : MonoBehaviour
 {
-    public bool IsTaken { get; private set; } = false;
+    private Transform _startTransform;
+
+    public bool IsTaken { get; private set; }
+
+    public event Action<Resource> OnResourceDelivered;
+
+    private void Awake()
+    {
+        _startTransform = transform;
+    }
+
+    public void Init(Vector3 position)
+    {
+        IsTaken = false;
+
+        transform.localScale = _startTransform.localScale;
+
+        transform.position = position;
+
+        gameObject.SetActive(true);
+    }
 
     public void BecomeTaken()
     {
         IsTaken = true;
     }
+
+    public void BecomeDelivered()=> OnResourceDelivered?.Invoke(this);
 }

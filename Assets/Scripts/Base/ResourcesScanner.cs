@@ -26,15 +26,18 @@ public class ResourcesScanner : MonoBehaviour
     private IEnumerator ScanCoroutine()
     {
         bool isWork = true;
+
         while (isWork)
         {
-            ResourcesFounded.Invoke(GetResourcesOnMap());
+            GetResourcesOnMap();
+
+            ResourcesFounded.Invoke(_resourcesOnMap);
 
             yield return _scanBreak;
         }
     }
 
-    private Queue<Resource> GetResourcesOnMap()
+    private void GetResourcesOnMap()
     {
         Collider[] resourcesColliders = Physics.OverlapSphere(transform.position, _scanRadius, _resourcesMask);
 
@@ -49,7 +52,5 @@ public class ResourcesScanner : MonoBehaviour
                 _resourcesOnMap.Enqueue(resource);
             }
         }
-
-        return _resourcesOnMap;
     }
 }

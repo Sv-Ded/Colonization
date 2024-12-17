@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: b115eb98a4453934d9ede37f1fc04bec, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b115eb98a4453934d9ede37f1fc04bec, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b115eb98a4453934d9ede37f1fc04bec, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b115eb98a4453934d9ede37f1fc04bec, type: 3}
       propertyPath: m_LocalPosition.x
@@ -103,6 +103,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _takerPosition: {fileID: 4019435898748095890}
+  _targetResource: {fileID: 0}
+  <TakenResource>k__BackingField: {fileID: 0}
 --- !u!195 &4685213227586979028
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -111,7 +113,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5109794559751268093}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -1372625422
   m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 8
