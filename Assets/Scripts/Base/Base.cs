@@ -31,7 +31,6 @@ public class Base : MonoBehaviour
     {
         _botStation.Init();
         _scanner.Init();
-        _storage.Init();
     }
 
     private void OnDisable()

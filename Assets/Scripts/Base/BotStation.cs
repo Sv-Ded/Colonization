@@ -3,12 +3,14 @@ using System.Collections;
 using UnityEngine;
 using System;
 
+[RequireComponent(typeof(BotSpawner))]
 public class BotStation : MonoBehaviour
 {
     [SerializeField] private int _botCount;
-    [SerializeField] private Bot _botPrefab;
+
     [SerializeField] private Transform _botPosition;
 
+    private BotSpawner _spawner;
     private List<Bot> _availableBots;
     private List<Bot> _busyBots;
     private List<Resource> _acceptedTargetResources;
@@ -18,18 +20,12 @@ public class BotStation : MonoBehaviour
 
     public void Init()
     {
+        _spawner = GetComponent<BotSpawner>();
         _availableBots = new List<Bot>();
         _busyBots = new List<Bot>();
         _acceptedTargetResources = new List<Resource>();
 
-        for (int i = 0; i < _botCount; i++)
-        {
-            Bot bot = Instantiate(_botPrefab, _botPosition.position, Quaternion.identity);
-
-            bot.Init(transform);
-
-            _availableBots.Add(bot);
-        }
+        _availableBots = _spawner.CreateBot(_botCount);
     }
 
     public void AcceptResources(Queue<Resource> resources)
@@ -37,10 +33,10 @@ public class BotStation : MonoBehaviour
         if (_coroutine != null)
             StopCoroutine(_coroutine);
 
-        _coroutine = StartCoroutine(SendBotToResourcesCoroutine(resources));
+        _coroutine = StartCoroutine(SendBotToResources(resources));
     }
 
-    private IEnumerator SendBotToResourcesCoroutine(Queue<Resource> resources)
+    private IEnumerator SendBotToResources(Queue<Resource> resources)
     {
         Resource resource;
 
@@ -64,7 +60,7 @@ public class BotStation : MonoBehaviour
 
     private void SetBotStatus(Resource resource)
     {
-        if (!resource.IsTaken)
+        if (resource.IsTaken == false)
         {
             Bot bot = _availableBots[0];
 

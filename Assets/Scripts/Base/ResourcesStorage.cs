@@ -10,12 +10,6 @@ public class ResourcesStorage : MonoBehaviour
 
     public event Action<int,int> ResourceAdded;
 
-    public void Init()
-    {
-        CristallCount = 0;
-        SteelCount = 0;
-    }
-
     public void AddResource(Resource resource)
     {
         if (resource is Cristall)

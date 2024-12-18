@@ -367,7 +367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6805567ba38db6a45849840d695e7eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _skale: 1
+  _scale: 1
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -381,9 +381,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mouseSensitivity: 0.08
---- !u!4 &965092019 stripped
+--- !u!4 &1369697109 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 8924321806264028604, guid: c4adb60c59a0b0847bcc0d3d4c5c3e39, type: 3}
+  m_CorrespondingSourceObject: {fileID: 6895906784163540890, guid: c4adb60c59a0b0847bcc0d3d4c5c3e39, type: 3}
   m_PrefabInstance: {fileID: 8479203443550269019}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1750496102
@@ -565,13 +565,14 @@ PrefabInstance:
     - target: {fileID: 6655111547892295634, guid: c4adb60c59a0b0847bcc0d3d4c5c3e39, type: 3}
       propertyPath: _botPosition
       value: 
-      objectReference: {fileID: 965092019}
+      objectReference: {fileID: 1369697109}
     - target: {fileID: 9136053937980257420, guid: c4adb60c59a0b0847bcc0d3d4c5c3e39, type: 3}
       propertyPath: m_Name
       value: base
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2353051356056445662, guid: c4adb60c59a0b0847bcc0d3d4c5c3e39, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4adb60c59a0b0847bcc0d3d4c5c3e39, type: 3}

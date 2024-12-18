@@ -22,7 +22,7 @@ public class ResourceSpawner : MonoBehaviour
     {
         Resource resource;
 
-        while (true)
+        while (enabled)
         {
             int count = Random.Range(_minCountResources, _maxCountResources);
 

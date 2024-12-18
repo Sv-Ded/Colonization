@@ -25,9 +25,7 @@ public class ResourcesScanner : MonoBehaviour
 
     private IEnumerator ScanCoroutine()
     {
-        bool isWork = true;
-
-        while (isWork)
+        while (enabled)
         {
             GetResourcesOnMap();
 
@@ -39,11 +37,11 @@ public class ResourcesScanner : MonoBehaviour
 
     private void GetResourcesOnMap()
     {
-        Collider[] resourcesColliders = Physics.OverlapSphere(transform.position, _scanRadius, _resourcesMask);
+        Collider[] colliders = Physics.OverlapSphere(transform.position, _scanRadius, _resourcesMask);
 
         _resourcesOnMap.Clear();
 
-        foreach (Collider collider in resourcesColliders)
+        foreach (Collider collider in colliders)
         {
             collider.TryGetComponent(out Resource resource);
 

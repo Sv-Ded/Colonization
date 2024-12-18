@@ -7,22 +7,19 @@ public class Bot : MonoBehaviour
 {
     [SerializeField] private Transform _takerPosition;
 
+    private float _distanceToTake = 4;
     private NavMeshAgent _agent;
     private Transform _startPosition;
     private Transform _walkTarget;
-    [SerializeField] private Resource _targetResource;
+    private Resource _targetResource;
 
-    [field: SerializeField] public Resource TakenResource { get; private set; }
+    public Resource TakenResource { get; private set; }
 
     public event Action<Bot> BotReturn;
 
-    private void Awake()
-    {
-        _agent = GetComponent<NavMeshAgent>();
-    }
-
     public void Init(Transform station)
     {
+        _agent = GetComponent<NavMeshAgent>();
         _startPosition = station.transform;
     }
 
@@ -30,7 +27,7 @@ public class Bot : MonoBehaviour
     {
         if (_walkTarget != null)
         {
-            if ((transform.position - _walkTarget.position).sqrMagnitude < 25)
+            if ((transform.position - _walkTarget.position).sqrMagnitude < _distanceToTake)
             {
                 if (_walkTarget.TryGetComponent(out Resource resource))
                 {
