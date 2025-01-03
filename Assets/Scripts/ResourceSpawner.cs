@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class ResourceSpawner : MonoBehaviour
 {
-    [SerializeField] private ResourcesPool _pool;
+    [SerializeField] private ResourcesPool _steelPool;
+    [SerializeField] private ResourcesPool _cristallPool;
     [SerializeField] private float _delay;
     [SerializeField] private int _minCountResources;
     [SerializeField] private int _maxCountResources;
@@ -15,10 +16,10 @@ public class ResourceSpawner : MonoBehaviour
     {
         _spawnDelay = new WaitForSeconds(_delay);
 
-        StartCoroutine(SpawnerCoroutine());
+        StartCoroutine(Spawn());
     }
 
-    private IEnumerator SpawnerCoroutine()
+    private IEnumerator Spawn()
     {
         Resource resource;
 
@@ -28,11 +29,17 @@ public class ResourceSpawner : MonoBehaviour
 
             for (int i = 0; i < count; i++)
             {
-                resource = _pool.GetResource();
+                resource = _steelPool.GetResource();
 
                 resource.Init(GetSpawnPosition());
-            }
 
+                if (Random.value >= 0.4f)
+                {
+                    resource = _cristallPool.GetResource();
+
+                    resource.Init(GetSpawnPosition());
+                }
+            }
 
             yield return _spawnDelay;
         }

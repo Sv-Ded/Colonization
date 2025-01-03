@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+using System;
 using UnityEngine;
 
 [RequireComponent  (typeof(Camera))]
@@ -7,20 +7,15 @@ public class CameraMover : MonoBehaviour
     [SerializeField] private float _mouseSensitivity = 0.2f;
 
     private float _mouseScrollMultipli = 100;
-    private Camera _camera;
     private Vector3 _startMousePosition;
     private Vector3 _endMousePosition;
 
-
-    private void Awake()
-    {
-        _camera = GetComponent<Camera>();
-    }
+    public event Action OnLMBClick;
+    public event Action OnRMBClick;
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = false;
 
         _endMousePosition = Input.mousePosition;
         _startMousePosition = _endMousePosition;
@@ -32,6 +27,16 @@ public class CameraMover : MonoBehaviour
         _endMousePosition = Input.mousePosition;
 
         transform.position += GetDirection()*_mouseSensitivity;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            OnLMBClick?.Invoke();
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            OnRMBClick?.Invoke();
+        }
     }
 
     private Vector3 GetDirection()

@@ -5,19 +5,10 @@ public class BotSpawner : MonoBehaviour
 {
     [SerializeField] private Bot _botPrefab;
 
-    public List<Bot> CreateBot(int count)
+    public Bot CreateBot()
     {
-        List<Bot> botList = new List<Bot>();
+        Bot bot = Instantiate(_botPrefab, transform.position, Quaternion.identity);
 
-        for (int i = 0; i < count; i++)
-        {
-            Bot bot = Instantiate(_botPrefab,transform.position,Quaternion.identity);
-
-            bot.Init(transform);
-
-            botList.Add(bot);
-        }
-
-        return botList;
+        return bot;
     }
 }

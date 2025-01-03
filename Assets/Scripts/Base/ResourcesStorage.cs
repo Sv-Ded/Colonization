@@ -1,14 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Collections;
+﻿using System;
 using UnityEngine;
-using System;
 
 public class ResourcesStorage : MonoBehaviour
 {
     public int CristallCount { get; private set; }
     public int SteelCount{get; private set;}
 
-    public event Action<int,int> ResourceAdded;
+    public event Action<int,int> ResourcesCountChanged;
 
     public void AddResource(Resource resource)
     {
@@ -21,6 +19,14 @@ public class ResourcesStorage : MonoBehaviour
             SteelCount++;
         }
 
-        ResourceAdded?.Invoke(CristallCount,SteelCount);
-    } 
+        ResourcesCountChanged?.Invoke(CristallCount,SteelCount);
+    }
+    
+    public void RemoveResources(int cristallCount, int steelCount)
+    {
+        CristallCount -= cristallCount;
+        SteelCount -= steelCount;
+
+        ResourcesCountChanged?.Invoke(CristallCount,SteelCount);
+    }
 }
