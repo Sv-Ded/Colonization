@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class StorageView : MonoBehaviour
@@ -17,4 +18,8 @@ public class StorageView : MonoBehaviour
     {
         _text.text = _resource1Name +": " +resource1+"\n" +_resource2Name+": "+ resource2;
     }
+
+    public void EnableText()=> _text.enabled = true;
+
+    public void DisableText()=> _text.enabled = false;
 }

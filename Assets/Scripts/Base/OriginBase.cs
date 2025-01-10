@@ -67,6 +67,10 @@ public class OriginBase : MonoBehaviour
         }
     }
 
+    public void EnableText() => _storageView.EnableText();
+
+    public void DisableText()=> _storageView.DisableText();
+
     public void AcceptNewBot(Bot bot)
     {
         _botStation.AddBot(bot);

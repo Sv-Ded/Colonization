@@ -381,7 +381,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6805567ba38db6a45849840d695e7eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scale: 3
+  _scale: 5
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -462,9 +462,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _steelPool: {fileID: 1750496103}
   _cristallPool: {fileID: 1750496106}
-  _delay: 60
-  _minCountResources: 0
-  _maxCountResources: 10
+  _delay: 45
+  _minCountResources: 5
+  _maxCountResources: 19
   _distance: 40
 --- !u!4 &1750496105
 Transform:

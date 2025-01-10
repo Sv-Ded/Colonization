@@ -11,6 +11,7 @@ public class BuildedBase : OriginBase
 
     public void Init(Transform basePosition)
     {
+        DisableText();
         BuildingPosition = basePosition;
     }
 
@@ -18,5 +19,7 @@ public class BuildedBase : OriginBase
     {
         IsBuilded = true;
         OnBuilded?.Invoke(this);
+
+        EnableText();
     }
 }

@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CameraMover), typeof(Camera))]
-public class Selecter : MonoBehaviour
+public class Selector : MonoBehaviour
 {
     [SerializeField] private LayerMask _mask;
 

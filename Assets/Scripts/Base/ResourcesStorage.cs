@@ -10,7 +10,7 @@ public class ResourcesStorage : MonoBehaviour
 
     public void AddResource(Resource resource)
     {
-        if (resource is Cristall)
+        if (resource is Crystall)
         {
             CristallCount++;
         }
