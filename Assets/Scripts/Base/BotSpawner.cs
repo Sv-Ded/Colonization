@@ -1,14 +1,8 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class BotSpawner : MonoBehaviour
 {
     [SerializeField] private Bot _botPrefab;
 
-    public Bot CreateBot()
-    {
-        Bot bot = Instantiate(_botPrefab, transform.position, Quaternion.identity);
-
-        return bot;
-    }
+    public Bot CreateBot()=> Instantiate(_botPrefab, transform.position, Quaternion.identity);
 }

@@ -7,19 +7,19 @@ using UnityEngine.AI;
 public class Bot : MonoBehaviour
 {
     [SerializeField] private Transform _takerPosition;
+    [SerializeField] private BuiltBase _buildedBase;
 
     private float _distanceToTake = 1;
     private NavMeshAgent _agent;
     private Transform _startPosition;
     private Transform _walkTarget;
     private Resource _targetResource;
-    private bool _isCarriesBase = false;
-    private BuildedBase _baseTemp = null;
+    private bool _isBuildBase = false;
 
     public Resource TakenResource { get; private set; }
 
-    public event Action<Bot> BotReturn;
-    public event Action<Bot> BotJoinedNewBase;
+    public event Action<Bot> Return;
+    public event Action<Bot> BaseBuilt;
 
     public void Init(Transform station)
     {
@@ -39,13 +39,9 @@ public class Bot : MonoBehaviour
                 {
                     TakeResource(resource);
                 }
-                else if (_walkTarget.TryGetComponent(out BuildedBase newBase) && newBase.IsBuilded==false)
+                else if (_isBuildBase)
                 {
-                    TakeBase(newBase);
-                }
-                else if (_isCarriesBase)
-                {
-                    SetBase(_baseTemp);
+                    BuildBase();
                 }
                 else
                 {
@@ -86,27 +82,17 @@ public class Bot : MonoBehaviour
         WalkToTarget(_startPosition);
     }
 
-    private void TakeBase(BuildedBase buildedBase)
+    public void InitBaseBuilding()=> _isBuildBase = true;
+
+    private void BuildBase()
     {
-        _isCarriesBase = true;
-        buildedBase.transform.SetParent(transform, false);
-        buildedBase.transform.localPosition = _takerPosition.localPosition;
+        BuiltBase builtBase = Instantiate(_buildedBase, _walkTarget.position, _walkTarget.rotation);
 
-        _baseTemp = buildedBase;
-        WalkToTarget(buildedBase.BuildingPosition);
-    }
+        BaseBuilt.Invoke(this);
 
-    private void SetBase(BuildedBase buildedBase)
-    {
-        _isCarriesBase = false;
-        buildedBase.transform.parent = null;
-        buildedBase.transform.position = buildedBase.BuildingPosition.position;
-        buildedBase.transform.rotation = buildedBase.BuildingPosition.rotation;
-        buildedBase.BecomeBuilded();
-        _baseTemp = null;
+        builtBase.AcceptNewBot(this);
 
-        BotJoinedNewBase?.Invoke(this);
-        buildedBase.AcceptNewBot(this);
+        _isBuildBase = false;
     }
 
     private void SetNewTarget()
@@ -114,7 +100,7 @@ public class Bot : MonoBehaviour
         WalkToTarget(_startPosition);
         _walkTarget = null;
         _targetResource = null;
-        BotReturn?.Invoke(this);
+        Return?.Invoke(this);
 
         if (TakenResource != null)
         {

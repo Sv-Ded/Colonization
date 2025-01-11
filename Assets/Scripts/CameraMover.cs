@@ -10,8 +10,8 @@ public class CameraMover : MonoBehaviour
     private Vector3 _startMousePosition;
     private Vector3 _endMousePosition;
 
-    public event Action OnLMBClick;
-    public event Action OnRMBClick;
+    public event Action LMBClicked;
+    public event Action RMBClicked;
 
     private void Start()
     {
@@ -30,12 +30,12 @@ public class CameraMover : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            OnLMBClick?.Invoke();
+            LMBClicked?.Invoke();
         }
 
         if (Input.GetMouseButtonDown(1))
         {
-            OnRMBClick?.Invoke();
+            RMBClicked?.Invoke();
         }
     }
 

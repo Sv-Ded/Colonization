@@ -18,12 +18,12 @@ public class Selector : MonoBehaviour
 
     private void OnEnable()
     {
-        _mover.OnLMBClick += OnLMBClick;
+        _mover.LMBClicked += Select;
 
-        _mover.OnRMBClick += OnRMBClick;
+        _mover.RMBClicked += ResetSelection;
     }
 
-    private void OnLMBClick()
+    private void Select()
     {
         RaycastHit hit;
 
@@ -34,6 +34,7 @@ public class Selector : MonoBehaviour
             if (hit.collider.TryGetComponent(out OriginBase originBase) && _selectedBase != originBase)
             {
                 _selectedBase = originBase;
+                _selectedBase.SetSelectionColor();
             }
             else if (hit.collider.TryGetComponent<Ground>(out _)&& _selectedBase!=null)
             {
@@ -42,15 +43,19 @@ public class Selector : MonoBehaviour
         }
     }
 
-    private void OnRMBClick()
+    private void ResetSelection()
     {
-        _selectedBase = null;
+        if (_selectedBase != null)
+        {
+            _selectedBase.SetBaseColor();
+            _selectedBase = null;
+        }
     }
 
     private void OnDisable()
     {
-        _mover.OnLMBClick -= OnLMBClick;
+        _mover.LMBClicked -= Select;
 
-        _mover.OnRMBClick -= OnRMBClick;
+        _mover.RMBClicked -= ResetSelection;
     }
 }

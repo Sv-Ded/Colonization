@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "BaseCreatorState", order = 53)]
 public class BaseCreatorState:State
 {
-    [SerializeField] private BuildedBase _basePrefab;
+    [SerializeField] private BuiltBase _basePrefab;
 
     private OriginBase _base;
     private BotStation _station;
@@ -25,17 +25,13 @@ public class BaseCreatorState:State
     {
         IsFinished = false;
 
-        BuildedBase newBase = Instantiate(_basePrefab,_base.transform.position,Quaternion.identity);
-        newBase.OnBuilded += OnBuildedBase;
-
-        newBase.Init(_base.Flag.transform);
-
-        _station.SendBotToBuildBase(newBase);
+        _station.BaseBuilt += OnBuildedBase;
+        _station.SendBotToBuildBase(_base.Flag.transform);
     }
 
-    public void OnBuildedBase(BuildedBase buildedBase)
+    public void OnBuildedBase()
     {
-        buildedBase.OnBuilded -= OnBuildedBase;
+        _station.BaseBuilt -= OnBuildedBase;
 
         _base.Flag.transform.position = _base.transform.position;
         

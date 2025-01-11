@@ -9,6 +9,7 @@ public class ResourceSpawner : MonoBehaviour
     [SerializeField] private int _minCountResources;
     [SerializeField] private int _maxCountResources;
     [SerializeField] private float _distance = 10;
+    [SerializeField,Range(0,1)] private float _spawnCristallChance = 0.6f;
 
     private WaitForSeconds _spawnDelay;
 
@@ -33,7 +34,7 @@ public class ResourceSpawner : MonoBehaviour
 
                 resource.Init(GetSpawnPosition());
 
-                if (Random.value >= 0.4f)
+                if (Random.value <= _spawnCristallChance)
                 {
                     resource = _cristallPool.GetResource();
 

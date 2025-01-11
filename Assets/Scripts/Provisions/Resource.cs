@@ -5,9 +5,9 @@ public abstract class Resource : MonoBehaviour
 {
     private Transform _startTransform;
 
-    public bool IsTaken { get; private set; }
-
     public event Action<Resource> OnResourceDelivered;
+
+    public bool IsTaken { get; private set; }
 
     private void Awake()
     {

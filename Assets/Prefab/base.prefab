@@ -272,6 +272,7 @@ GameObject:
   - component: {fileID: 8049483371118317616}
   - component: {fileID: 1657342057329136952}
   - component: {fileID: 884981947522743641}
+  - component: {fileID: 2833114215111728934}
   m_Layer: 0
   m_Name: Base
   m_TagString: Untagged
@@ -349,6 +350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _flagPrefab: {fileID: 6198000391350468431, guid: e2dd8b907e9be984fa2e2ed58d4b5de0, type: 3}
   _botCount: 3
+  _renderer: {fileID: 0}
 --- !u!114 &3180828428801577581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,6 +412,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2833114215111728934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7116677109087274839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f49d0b0f6610d4449b7bdab68c42c5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderer: {fileID: 4743087681620066515}
+  _materialBase: {fileID: -876546973899608171, guid: b115eb98a4453934d9ede37f1fc04bec, type: 3}
+  _materialSelection: {fileID: 2100000, guid: 368c492be00d4dd45b83e83b2f91ad08, type: 2}
 --- !u!1 &9136053937980257420
 GameObject:
   m_ObjectHideFlags: 0

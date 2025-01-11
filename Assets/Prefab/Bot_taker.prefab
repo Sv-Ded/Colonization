@@ -64,10 +64,18 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -4683669308469848369, guid: b115eb98a4453934d9ede37f1fc04bec, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 612950baf3ad667459c85a0e8669211f, type: 2}
     - target: {fileID: 919132149155446097, guid: b115eb98a4453934d9ede37f1fc04bec, type: 3}
       propertyPath: m_Name
       value: Bot_taker
       objectReference: {fileID: 0}
+    - target: {fileID: 4632041371095986678, guid: b115eb98a4453934d9ede37f1fc04bec, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 612950baf3ad667459c85a0e8669211f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: -8904764688284711701, guid: b115eb98a4453934d9ede37f1fc04bec, type: 3}
@@ -103,8 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _takerPosition: {fileID: 4019435898748095890}
-  _targetResource: {fileID: 0}
-  <TakenResource>k__BackingField: {fileID: 0}
+  _buildedBase: {fileID: 6905874221810152115, guid: 35b79cb3a74ce1c44a48876aaf2fea5d, type: 3}
 --- !u!195 &4685213227586979028
 NavMeshAgent:
   m_ObjectHideFlags: 0

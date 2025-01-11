@@ -466,6 +466,7 @@ MonoBehaviour:
   _minCountResources: 5
   _maxCountResources: 19
   _distance: 40
+  _spawnCristallChance: 0.6
 --- !u!4 &1750496105
 Transform:
   m_ObjectHideFlags: 0
@@ -514,6 +515,10 @@ PrefabInstance:
       propertyPath: m_Sources.Array.data[0].weight
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4743087681620066515, guid: c4adb60c59a0b0847bcc0d3d4c5c3e39, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: -876546973899608171, guid: b115eb98a4453934d9ede37f1fc04bec, type: 3}
     - target: {fileID: 4815192572692695509, guid: c4adb60c59a0b0847bcc0d3d4c5c3e39, type: 3}
       propertyPath: m_LocalPosition.x
       value: -41.08

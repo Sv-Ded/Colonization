@@ -7,21 +7,19 @@ using System;
 public class BotStation : MonoBehaviour
 {
     private BotSpawner _spawner;
-    private List<Bot> _availableBots;
-    private List<Bot> _busyBots;
-    private List<Resource> _acceptedTargetResources;
+    private List<Bot> _availableBots = new List<Bot>();
+    private List<Bot> _busyBots = new List<Bot>();
+    private List<Resource> _acceptedTargetResources =new List<Resource>();
     private Coroutine _coroutine;
 
     public int BotCount { get { return _availableBots.Count + _busyBots.Count; } }
 
     public event Action<Resource> BotBroughtResource;
+    public event Action BaseBuilt;
 
     public void Init(int botCount)
     {
         _spawner = GetComponent<BotSpawner>();
-        _availableBots = new List<Bot>();
-        _busyBots = new List<Bot>();
-        _acceptedTargetResources = new List<Resource>();
 
         for (int i = 0; i < botCount; i++)
         {
@@ -33,7 +31,6 @@ public class BotStation : MonoBehaviour
     {
         Bot bot = _spawner.CreateBot();
         bot.Init(transform);
-        bot.BotJoinedNewBase += RemoveBot;
 
         _availableBots.Add(bot);
     }
@@ -42,8 +39,6 @@ public class BotStation : MonoBehaviour
     {
         bot.Init(transform);
         _availableBots.Add(bot);
-
-        bot.BotJoinedNewBase += RemoveBot;
     }
 
     public void AcceptResources(Queue<Resource> resources)
@@ -54,9 +49,9 @@ public class BotStation : MonoBehaviour
         _coroutine = StartCoroutine(SendBotToResources(resources));
     }
 
-    public void SendBotToBuildBase(BuildedBase newBase)
+    public void SendBotToBuildBase(Transform position)
     {
-        StartCoroutine(WaitAvailableBot(newBase.transform));
+        StartCoroutine(WaitAvailableBot(position));
     }
 
     private IEnumerator SendBotToResources(Queue<Resource> resources)
@@ -72,7 +67,7 @@ public class BotStation : MonoBehaviour
                 if (!_acceptedTargetResources.Contains(resource))
                 {
                     _acceptedTargetResources.Add(resource);
-                    SetBotStatus(resource.transform);
+                    SetBotStatus(_availableBots[0], resource.transform);
                 }
             }
 
@@ -80,27 +75,31 @@ public class BotStation : MonoBehaviour
         }
     }
 
-    private IEnumerator WaitAvailableBot(Transform transform)
+    private IEnumerator WaitAvailableBot(Transform position)
     {
         while (_availableBots.Count == 0)
         {
             yield return null;
         }
 
-        SetBotStatus(transform);
-    }
-
-    private void SetBotStatus(Transform target)
-    {
         Bot bot = _availableBots[0];
 
+        bot.BaseBuilt += RemoveBot;
+
+        bot.InitBaseBuilding();
+
+        SetBotStatus(bot, position);
+    }
+
+    private void SetBotStatus(Bot bot,Transform target)
+    {
         _availableBots.Remove(bot);
 
         _busyBots.Add(bot);
 
         bot.WalkToTarget(target);
 
-        bot.BotReturn += AcceptBot;
+        bot.Return += AcceptBot;
     }
 
     private void AcceptBot(Bot bot)
@@ -114,14 +113,16 @@ public class BotStation : MonoBehaviour
             BotBroughtResource?.Invoke(bot.TakenResource);
         }
 
-        bot.BotReturn -= AcceptBot;
+        bot.Return -= AcceptBot;
     }
 
     private void RemoveBot(Bot bot)
     {
         _busyBots.Remove(bot);
 
-        bot.BotReturn -= AcceptBot;
-        bot.BotJoinedNewBase -= RemoveBot;
+        bot.Return -= AcceptBot;
+        bot.BaseBuilt -= RemoveBot;
+
+        BaseBuilt?.Invoke();
     }
 }

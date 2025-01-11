@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(BotStation), typeof(ResourcesStorage), typeof(ResourcesScanner))]
-[RequireComponent(typeof(StorageView), typeof(BaseStateMachine))]
+[RequireComponent(typeof(StorageView), typeof(BaseStateMachine), typeof (MaterialChanger))]
 public class OriginBase : MonoBehaviour
 {
     [SerializeField] private Flag _flagPrefab;
@@ -12,6 +12,7 @@ public class OriginBase : MonoBehaviour
     private ResourcesStorage _storage;
     private StorageView _storageView;
     private BaseStateMachine _stateMachine;
+    private MaterialChanger _material;
 
     public Flag Flag { get; private set; }
 
@@ -22,6 +23,7 @@ public class OriginBase : MonoBehaviour
         _storage = GetComponent<ResourcesStorage>();
         _storageView = GetComponent<StorageView>();
         _stateMachine = GetComponent<BaseStateMachine>();
+        _material = GetComponent<MaterialChanger>();
 
         Flag = Instantiate(_flagPrefab, transform.position, Quaternion.identity);
     }
@@ -43,6 +45,7 @@ public class OriginBase : MonoBehaviour
         _botStation.Init(_botCount);
         _scanner.Init();
         _stateMachine.Init(_botStation);
+        _material.Init();
     }
 
     private void OnDisable()
@@ -67,9 +70,9 @@ public class OriginBase : MonoBehaviour
         }
     }
 
-    public void EnableText() => _storageView.EnableText();
+    public void SetBaseColor() => _material.SetBaseColor();
 
-    public void DisableText()=> _storageView.DisableText();
+    public void SetSelectionColor() => _material.SetSelectionColor();
 
     public void AcceptNewBot(Bot bot)
     {
